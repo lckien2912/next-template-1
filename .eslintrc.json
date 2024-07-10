@@ -1,0 +1,15 @@
+{
+	"extends": [
+		"prettier",
+		"next/core-web-vitals",
+		"plugin:@next/next/recommended"
+	],
+	"rules": {
+		"no-unused-vars": "error",
+		"no-console": "warn",
+		"indent": "off",
+		"semi": 0,
+		"comma-dangle": 0,
+		"no-duplicate-imports": "error"
+	}
+}

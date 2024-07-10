@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  :root,
+  body {
+    @apply w-full h-full scroll-smooth box-border;
+  }
+
+  body {
+    @apply overflow-x-hidden;
+  }
+}
+
+@layer components {
+  /* .heading-1 {
+    @apply font-bold text-[5rem] leading-[6rem];
+  }
+
+  .heading-2 {
+    @apply font-bold text-[3.5rem] leading-[4.25rem];
+  }
+
+  .heading-3 {
+    @apply font-bold text-[2.75rem] leading-[3.25rem];
+  }
+
+  .heading-4 {
+    @apply font-bold text-[2rem] leading-[2.5rem];
+  }
+
+  .heading-5 {
+    @apply font-bold text-2xl;
+  }
+
+  .heading-6 {
+    @apply font-bold text-xl;
+  }
+
+  .heading-7 {
+    @apply font-semibold text-[5rem] leading-[6.25rem];
+  }
+
+  .heading-8 {
+    @apply font-semibold text-[2rem] leading-[2.5rem];
+  }
+
+  .heading-9 {
+    @apply font-normal text-[2rem] leading-[2.5rem];
+  }
+
+  .body-1 {
+    @apply text-xl leading-[1.875rem];
+  }
+
+  .body-2 {
+    @apply text-lg leading-[1.625rem];
+  }
+
+  .body-3 {
+    @apply text-base;
+  }
+
+  .body-4 {
+    @apply text-[2rem] leading-[3.5rem] font-medium;
+  }
+
+  .caption-1 {
+    @apply text-sm;
+  }
+
+  .caption-2 {
+    @apply text-xs;
+  }
+
+  .caption-3 {
+    @apply text-xs leading-[1.25rem] tracking-[0.075rem] uppercase;
+  }
+
+  .caption-4 {
+    @apply font-medium text-base;
+  }
+
+  .caption-4 {
+    @apply text-[0.625rem] leading-[0.875rem];
+  }
+
+  .big {
+    @apply font-bold text-base;
+  }
+
+  .small {
+    @apply font-bold text-sm;
+  } */
+
+  ::-webkit-scrollbar {
+    @apply size-1
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #d6dbe2;
+    @apply rounded-full;
+  }
+}
