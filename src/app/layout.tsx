@@ -16,14 +16,14 @@ export const metadata: Metadata = {
 	description: 'App description.',
 }
 
-export default function RootLayout({
+const RootLayout = ({
 	children,
 }: Readonly<{
 	children: React.ReactNode
-}>) {
+}>) => {
 	const initialState = cookieToInitialState(
 		wagmiConfig,
-		headers().get('cookie')
+		headers().get('cookie'),
 	)
 
 	return (
@@ -39,3 +39,5 @@ export default function RootLayout({
 		</html>
 	)
 }
+
+export default RootLayout

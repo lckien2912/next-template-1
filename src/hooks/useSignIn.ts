@@ -4,7 +4,7 @@ import { useReadLocalStorage } from 'usehooks-ts'
 import { useAccount, useDisconnect, useSignMessage } from 'wagmi'
 
 import { authServices } from '@/services/auth/auth.services'
-import { ISignInParams } from '@/services/auth/auth.types'
+import { SignInParams } from '@/services/auth/auth.types'
 
 import { PREVIOUS_ADDRESS } from '@/constants/variables'
 import { useMutation } from '@tanstack/react-query'
@@ -15,13 +15,13 @@ export const useSignIn = ({
 }: {
 	successCallback?: (
 		data: boolean,
-		variables: ISignInParams,
-		context: unknown
+		variables: SignInParams,
+		context: unknown,
 	) => unknown
 	errorCallback?: (
 		error: Error,
-		variables: ISignInParams,
-		context: unknown
+		variables: SignInParams,
+		context: unknown,
 	) => unknown
 }) => {
 	const router = useRouter()
@@ -30,7 +30,7 @@ export const useSignIn = ({
 	const previousAddress = useReadLocalStorage<string | null>(PREVIOUS_ADDRESS)
 
 	const { mutate: handleSignIn } = useMutation({
-		mutationFn: async (body: ISignInParams) =>
+		mutationFn: async (body: SignInParams) =>
 			await authServices.postSignIn(body),
 
 		onSuccess(...params) {
@@ -49,11 +49,12 @@ export const useSignIn = ({
 			onSuccess(data) {
 				if (!address) throw new Error('You must connect to a wallet!')
 
-				const signInData: ISignInParams = {
+				const signInData: SignInParams = {
 					publicAddress: address,
 					signature: data,
 					remember: false,
 				}
+
 				handleSignIn(signInData)
 			},
 

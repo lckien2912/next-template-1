@@ -1,11 +1,11 @@
 import { Address } from 'viem'
 import { SignMessageData } from 'wagmi/query'
 
-export interface ICheckPublicAddressParams {
+export interface CheckPublicAddressParams {
 	publicAddress: Address
 }
 
-export interface ISignUpParams {
+export interface SignUpParams {
 	publicAddress: Address
 	email: string
 	telegram: string
@@ -14,7 +14,7 @@ export interface ISignUpParams {
 	refCode?: string | null
 }
 
-export interface ISignInParams {
+export interface SignInParams {
 	publicAddress: Address
 	signature: SignMessageData
 	remember: boolean

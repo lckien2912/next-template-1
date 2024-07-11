@@ -18,6 +18,7 @@ interface PaginationComponentProps {
 	limit: number
 	paramKey?: string
 }
+
 const Pagination: React.FC<PaginationComponentProps> = ({
 	totalItem = 0,
 	className,

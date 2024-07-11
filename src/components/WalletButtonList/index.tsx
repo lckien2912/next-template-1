@@ -30,6 +30,7 @@ const WalletBtnList = () => {
 
 		const { nonce } = data
 		const message = `Sign this message for authenticating with your wallet. Nonce: ${nonce}`
+
 		signMessage({ message })
 	}
 
@@ -38,6 +39,7 @@ const WalletBtnList = () => {
 		mutation: {
 			async onSuccess({ accounts }) {
 				const currentAccount = accounts[0]
+
 				handleCheckAddress(currentAccount)
 			},
 			onError: async ({ message }) => {
@@ -77,7 +79,7 @@ const WalletBtnList = () => {
 							onConnect={() => connect({ connector })}
 						/>
 					)
-				})
+				}),
 			)}
 		</div>
 	)

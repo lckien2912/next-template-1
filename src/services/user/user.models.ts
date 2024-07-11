@@ -1,4 +1,4 @@
-export type UserModels = {
+export type UserModel = {
 	id: number
 	email: string
 	telegram: string

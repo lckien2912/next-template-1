@@ -1,20 +1,18 @@
 import { apiWithoutAuth } from '..'
-import { ICheckPublicAddressModel, ISignUpModel } from './auth.models'
+import { CheckPublicAddressModel, SignUpModel } from './auth.models'
 import { postLogout, postSignIn } from './auth.serverActions'
-import { ICheckPublicAddressParams, ISignUpParams } from './auth.types'
+import { CheckPublicAddressParams, SignUpParams } from './auth.types'
 
 const ENDPOINT = '/auth'
 
-const getPublicAddressAvailability = async (
-	params: ICheckPublicAddressParams
-) =>
-	await apiWithoutAuth.get<ICheckPublicAddressModel>(
+const getPublicAddressAvailability = async (params: CheckPublicAddressParams) =>
+	await apiWithoutAuth.get<CheckPublicAddressModel>(
 		ENDPOINT + '/public-address-availability',
-		params
+		params,
 	)
 
-const postSignUp = async (body: ISignUpParams) =>
-	await apiWithoutAuth.post<ISignUpModel>(ENDPOINT + '/sign-up', body)
+const postSignUp = async (body: SignUpParams) =>
+	await apiWithoutAuth.post<SignUpModel>(ENDPOINT + '/sign-up', body)
 
 export const authServices = {
 	getPublicAddressAvailability,

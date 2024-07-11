@@ -1,6 +1,7 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { Address } from 'viem'
 
-export type ICheckPublicAddressModel =
+export type CheckPublicAddressModel =
 	| {
 			exist: false
 	  }
@@ -9,7 +10,7 @@ export type ICheckPublicAddressModel =
 			nonce: string
 	  }
 
-export interface ISignUpModel {
+export interface SignUpModel {
 	nonce: string
 	registeredUser: {
 		active2fa: boolean
@@ -34,7 +35,7 @@ export interface ISignUpModel {
 	}
 }
 
-export interface ISignInModel {
+export interface SignInModel {
 	accessToken: string
 	refreshToken: string
 }

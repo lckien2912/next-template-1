@@ -6,9 +6,10 @@ export function myToast(
 	toastId: string,
 	status: 'error' | 'success' | 'loading' | 'idle' | 'pending',
 	label: string,
-	errorMsg?: string
+	errorMsg?: string,
 ) {
 	let message = ''
+
 	if (errorMsg?.includes('User rejected the request.')) {
 		message = 'User rejected the request'
 	} else if (errorMsg?.includes('reason:' && 'Contract Call:')) {
@@ -18,6 +19,7 @@ export function myToast(
 	} else {
 		if (errorMsg?.includes('Version:')) {
 			message = errorMsg?.split('Version:')[0] || 'Transaction failed'
+
 			if (message.includes('Address' && 'is invalid')) {
 				message = 'The Referral address does not exist'
 			}
@@ -65,7 +67,7 @@ export function myToast(
 					toastId,
 					autoClose: false,
 					closeButton: false,
-				}
+				},
 			)
 			break
 		case 'pending':
@@ -79,7 +81,7 @@ export function myToast(
 					toastId,
 					autoClose: false,
 					closeButton: false,
-				}
+				},
 			)
 			break
 		case 'idle':
@@ -110,6 +112,7 @@ export const handleToast = ({
 		myToast(toastId, writeStatus, label, writeError?.message)
 	} else if (hash && writeStatus === 'success') {
 		let isMounted = true
+
 		waitTransaction({ hash })
 			.then((res) => {
 				if (isMounted) {
@@ -119,6 +122,7 @@ export const handleToast = ({
 						myToast(toastId, 'error', label, 'Transaction failed')
 					}
 				}
+
 				return () => {
 					isMounted = false
 				}

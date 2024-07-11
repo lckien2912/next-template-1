@@ -1,11 +1,9 @@
-export type ClassName = { className?: string }
-
-export type CommonFilter = {
+export type CommonFilterType = {
 	page?: number
 	limit?: number
 }
 
-export type CommonFilterWithDate = CommonFilter & {
+export type CommonFilterWithDateType = CommonFilterType & {
 	fromDate?: string
 	toDate?: string
 }

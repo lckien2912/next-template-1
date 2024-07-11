@@ -3,8 +3,8 @@
 import { cookies } from 'next/headers'
 
 import { apiWithAuth, apiWithoutAuth } from '..'
-import { ISignInModel } from './auth.models'
-import { ISignInParams } from './auth.types'
+import { SignInModel } from './auth.models'
+import { SignInParams } from './auth.types'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/variables'
 
 const ENDPOINT = '/auth'
@@ -29,13 +29,14 @@ export const deleteRefreshToken = () => {
 	cookies().delete(REFRESH_TOKEN)
 }
 
-export const postSignIn = async (body: ISignInParams) => {
+export const postSignIn = async (body: SignInParams) => {
 	try {
-		const { data } = await apiWithoutAuth.post<ISignInModel>(
+		const { data } = await apiWithoutAuth.post<SignInModel>(
 			ENDPOINT + '/sign-in',
-			body
+			body,
 		)
 		const { accessToken, refreshToken } = data
+
 		cookies().set(ACCESS_TOKEN, accessToken)
 		cookies().set(REFRESH_TOKEN, refreshToken)
 
@@ -47,8 +48,11 @@ export const postSignIn = async (body: ISignInParams) => {
 
 export const postLogout = async () => {
 	try {
-		const { data } = await apiWithAuth.post<boolean>(ENDPOINT + '/logout')
-		return data
+		const { data: isLogout } = await apiWithAuth.post<boolean>(
+			ENDPOINT + '/logout',
+		)
+
+		return isLogout
 	} catch (e) {
 		throw new Error((e as Error).message)
 	} finally {

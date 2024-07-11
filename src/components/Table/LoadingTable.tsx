@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { Skeleton } from '@/components/ui/skeleton'
 import {
 	Table,
@@ -29,7 +31,7 @@ const LoadingTable = <T,>({
 	})
 
 	return (
-		<div className="h-full rounded-md bg-neutral-06 px-3">
+		<div className="bg-neutral-06 h-full rounded-md px-3">
 			<Table>
 				<TableHeader>
 					{table.getHeaderGroups().map((headerGroup) => (
@@ -41,7 +43,7 @@ const LoadingTable = <T,>({
 											? null
 											: flexRender(
 													header.column.columnDef.header,
-													header.getContext()
+													header.getContext(),
 												)}
 									</TableHead>
 								)
@@ -50,19 +52,23 @@ const LoadingTable = <T,>({
 					))}
 				</TableHeader>
 				<TableBody>
-					{Array(rows)
-						.fill(1)
-						.map((_item, index) => (
-							<TableRow key={index}>
-								{Array(columns.length)
-									.fill(1)
-									.map((_item, index) => (
-										<TableCell key={index} className="h-16 p-2">
-											<Skeleton className="h-10 w-full px-2" />
-										</TableCell>
-									))}
-							</TableRow>
-						))}
+					{React.Children.toArray(
+						Array(rows)
+							.fill(1)
+							.map(() => (
+								<TableRow>
+									{React.Children.toArray(
+										Array(columns.length)
+											.fill(1)
+											.map(() => (
+												<TableCell className="h-16 p-2">
+													<Skeleton className="h-10 w-full px-2" />
+												</TableCell>
+											)),
+									)}
+								</TableRow>
+							)),
+					)}
 				</TableBody>
 			</Table>
 		</div>

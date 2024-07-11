@@ -3,7 +3,7 @@
 	"useTabs": true,
 	"semi": false,
 	"printWidth": 80,
-	"trailingComma": "es5",
+	"trailingComma": "all",
 	"singleQuote": true,
 	"endOfLine": "auto",
 	"plugins": [

@@ -9,7 +9,7 @@ import {
 import { handleToast } from '@/utils/toast'
 
 export const useApprove = (
-	parameters?: UseWriteContractParameters<Config, unknown>
+	parameters?: UseWriteContractParameters<Config, unknown>,
 ): UseWriteContractReturnType<Config, unknown> => {
 	const data = useWriteContract(parameters)
 

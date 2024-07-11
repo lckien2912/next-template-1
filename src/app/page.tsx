@@ -1,4 +1,6 @@
-export default function Home() {
+import React from 'react'
+
+const Home = () => {
 	return (
 		<>
 			<header className="flex items-center justify-between px-24">
@@ -11,3 +13,5 @@ export default function Home() {
 		</>
 	)
 }
+
+export default Home

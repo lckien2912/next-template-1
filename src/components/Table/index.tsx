@@ -42,9 +42,11 @@ const DataTable: React.FC<DataTableProps<any>> = ({
 	paginationKey = 'page',
 }) => {
 	const [sorting, setSorting] = React.useState<SortingState>([])
+
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-		[]
+		[],
 	)
+
 	const [columnVisibility, setColumnVisibility] =
 		React.useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = React.useState({})
@@ -74,7 +76,7 @@ const DataTable: React.FC<DataTableProps<any>> = ({
 	})
 
 	return (
-		<div className="h-full w-full rounded-md bg-neutral-06 px-3">
+		<div className="bg-neutral-06 h-full w-full rounded-md px-3">
 			<Table>
 				<TableHeader>
 					{table.getHeaderGroups().map((headerGroup) => (
@@ -86,7 +88,7 @@ const DataTable: React.FC<DataTableProps<any>> = ({
 											? null
 											: flexRender(
 													header.column.columnDef.header,
-													header.getContext()
+													header.getContext(),
 												)}
 									</TableHead>
 								)
@@ -118,7 +120,7 @@ const DataTable: React.FC<DataTableProps<any>> = ({
 						<TableRow>
 							<TableCell
 								colSpan={columns.length}
-								className="heading-5 body-2 w-full items-center justify-center gap-1 py-[130px] pr-0 text-neutral-04"
+								className="heading-5 body-2 text-neutral-04 w-full items-center justify-center gap-1 py-[130px] pr-0"
 							>
 								<div className="flex items-center justify-center gap-1">
 									<span className="">No result</span>

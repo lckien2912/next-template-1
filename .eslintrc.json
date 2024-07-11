@@ -1,15 +1,151 @@
 {
-	"extends": [
-		"prettier",
-		"next/core-web-vitals",
-		"plugin:@next/next/recommended"
-	],
+	"plugins": ["prettier", "@stylistic", "@typescript-eslint"],
+	"extends": ["prettier", "next/core-web-vitals", "eslint:recommended", "next"],
+	"parserOptions": {
+		"project": "./tsconfig.json"
+	},
 	"rules": {
+		"prettier/prettier": [
+			"error",
+			{
+				"singleQuote": true,
+				"endOfLine": "auto"
+			}
+		],
+		"comma-dangle": 0,
 		"no-unused-vars": "error",
 		"no-console": "warn",
-		"indent": "off",
+		"no-duplicate-imports": "error",
+		"no-undef": "off",
+		"no-var": "error",
+		"padding-line-between-statements": "off",
 		"semi": 0,
-		"comma-dangle": 0,
-		"no-duplicate-imports": "error"
-	}
+		"semi-spacing": ["error", { "before": false, "after": true }],
+		"@stylistic/padding-line-between-statements": [
+			"error",
+			{ "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+			{
+				"blankLine": "any",
+				"prev": ["const", "let", "var"],
+				"next": ["const", "let", "var"]
+			},
+			{ "blankLine": "always", "prev": "*", "next": "return" },
+			{
+				"blankLine": "always",
+				"prev": "*",
+				"next": ["interface", "type"]
+			},
+			{
+				"blankLine": "always",
+				"prev": "*",
+				"next": "export"
+			},
+			{
+				"blankLine": "always",
+				"prev": "*",
+				"next": "block-like"
+			},
+			{
+				"blankLine": "always",
+				"prev": "*",
+				"next": "multiline-const"
+			}
+		],
+		"@stylistic/no-multiple-empty-lines": "error",
+		"@stylistic/space-before-blocks": "error",
+		"@stylistic/template-curly-spacing": "error",
+		"@stylistic/object-curly-spacing": ["error", "always"],
+		"@stylistic/no-multi-spaces": "error",
+		"@stylistic/key-spacing": ["error", { "afterColon": true }],
+		"@stylistic/keyword-spacing": ["error", { "before": true }],
+		"@stylistic/function-call-spacing": ["error", "never"],
+		"@stylistic/dot-location": ["error", "property"],
+		"@stylistic/block-spacing": "error",
+		"@stylistic/arrow-spacing": "error",
+		"@stylistic/arrow-parens": ["error", "always"],
+		"@stylistic/array-bracket-spacing": ["error", "never"],
+		"@stylistic/comma-spacing": ["error", { "before": false, "after": true }],
+		"react/prop-types": "off",
+		"react/function-component-definition": [
+			"warn",
+			{ "namedComponents": "arrow-function" }
+		],
+		"react/jsx-pascal-case": "error",
+		"react/button-has-type": "error",
+		"react/jsx-no-useless-fragment": "error",
+		"react/jsx-key": [
+			"error",
+			{
+				"checkFragmentShorthand": true,
+				"checkKeyMustBeforeSpread": true,
+				"warnOnDuplicates": true
+			}
+		],
+		"react/no-children-prop": "error",
+		"react/no-unstable-nested-components": ["error", { "allowAsProps": true }],
+		"react/jsx-fragments": "error",
+		"react/no-array-index-key": "error",
+		"@stylistic/jsx-self-closing-comp": [
+			"error",
+			{
+				"component": true,
+				"html": true
+			}
+		],
+		"@typescript-eslint/naming-convention": [
+			"error",
+			{
+				"selector": "variable",
+				"types": ["boolean"],
+				"format": ["PascalCase"],
+				"prefix": ["is", "should", "has", "can", "did", "will"]
+			},
+			{
+				"selector": "typeParameter",
+				"format": ["PascalCase"],
+				"prefix": ["T", "P"]
+			},
+			{
+				"selector": "interface",
+				"format": ["PascalCase"],
+				"custom": {
+					"regex": "^(I[A-Z])|([A-Za-z]Props)$",
+					"match": true
+				}
+			},
+			{
+				"selector": "typeAlias",
+				"format": ["PascalCase"],
+				"suffix": ["Type"]
+			}
+		]
+	},
+	"overrides": [
+		{
+			"files": ["./src/services/**/*.models.ts"],
+			"rules": {
+				"@typescript-eslint/naming-convention": [
+					"error",
+					{
+						"selector": ["interface", "typeAlias"],
+						"format": ["PascalCase"],
+						"suffix": ["Model"]
+					}
+				]
+			}
+		},
+		{
+			"files": ["./src/services/**/*.types.ts"],
+			"rules": {
+				"@typescript-eslint/naming-convention": [
+					"error",
+					{
+						"selector": ["interface", "typeAlias"],
+						"format": ["PascalCase"],
+						"suffix": ["Params", "Body", "Type"]
+					}
+				]
+			}
+		}
+	]
 }

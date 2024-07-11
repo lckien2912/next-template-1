@@ -1,6 +1,6 @@
 import queryString from 'query-string'
 
-import { ISignInModel } from './auth/auth.models'
+import { SignInModel } from './auth/auth.models'
 import {
 	deleteRefreshToken,
 	getAccessToken,
@@ -8,37 +8,22 @@ import {
 	setAccessToken,
 	setRefreshToken,
 } from './auth/auth.serverActions'
+import {
+	IResponseSuccess,
+	IServerResponseSuccess,
+	Params,
+	RequestOptions,
+} from './config.types'
 
 export const BASE_URL = process.env.NEXT_PUBLIC_API
 const HTTP_METHOD_GET = 'GET'
 const CONTENT_TYPE_JSON = 'application/json'
 
-export interface Params {
-	[key: string]: string | number | boolean
-}
-
-export interface IServerResponseSuccess<T> {
-	success: true
-	statusCode: number
-	message: string
-	data: T
-	totalRow: number
-}
-
-export interface IResponseSuccess<T> {
-	data: T
-	totalRow?: number
-}
-
-export interface RequestOptions extends RequestInit {
-	headers?: Record<string, string>
-}
-
 // Base request function
 export async function baseRequest<T>(
 	url: string,
 	params?: Params | FormData,
-	options?: RequestOptions
+	options?: RequestOptions,
 ): Promise<IResponseSuccess<T>> {
 	try {
 		const defaultOptions: RequestOptions = {
@@ -66,6 +51,7 @@ export async function baseRequest<T>(
 					skipEmptyString: true,
 					skipNull: true,
 				})
+
 				url += '?' + queryStringParams
 			} else {
 				if (!isFormData) {
@@ -91,7 +77,7 @@ export async function baseRequest<T>(
 				})
 
 				deleteRefreshToken()
-				const data: IServerResponseSuccess<ISignInModel> = await res.json()
+				const data: IServerResponseSuccess<SignInModel> = await res.json()
 
 				if (data.success) {
 					setAccessToken(data.data.accessToken)
@@ -125,7 +111,7 @@ export async function baseRequest<T>(
 export async function requestWithoutAuth<T>(
 	url: string,
 	params?: Params | FormData,
-	options?: RequestOptions
+	options?: RequestOptions,
 ): Promise<IResponseSuccess<T>> {
 	return await baseRequest(url, params, options)
 }
@@ -134,7 +120,7 @@ export async function requestWithoutAuth<T>(
 export async function requestWithAuth<T>(
 	url: string,
 	params?: Params | FormData,
-	options?: RequestOptions
+	options?: RequestOptions,
 ): Promise<IResponseSuccess<T>> {
 	const accessToken = await getAccessToken()
 

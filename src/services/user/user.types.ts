@@ -1,6 +1,6 @@
-import { UserModels } from './user.models'
+import { UserModel } from './user.models'
 
 export type EditUserBody = Pick<
-	UserModels,
+	UserModel,
 	'email' | 'discord' | 'twitter' | 'telegram'
 >
