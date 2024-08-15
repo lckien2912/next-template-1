@@ -9,7 +9,7 @@ interface MainAppLayoutProps {
 }
 
 const MainAppLayout: FC<MainAppLayoutProps> = ({ children }) => {
-	const isLogin = cookies().get(ACCESS_TOKEN)?.value ? true : false
+	const isLogin = cookies().has(ACCESS_TOKEN)
 
 	return (
 		<LoginStateProvider loginState={isLogin}>{children}</LoginStateProvider>

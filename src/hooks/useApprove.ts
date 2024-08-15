@@ -21,7 +21,7 @@ export const useApprove = (
 			toastId: 'approve_toast',
 			writeStatus: approveStatus,
 			writeError: approveError,
-			label: `Approve`,
+			label: 'Approve',
 		})
 	}, [approveData, approveError, approveStatus])
 

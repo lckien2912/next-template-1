@@ -16,16 +16,14 @@ export function myToast(
 		message =
 			errorMsg?.split('reason:')[1]?.split('Contract Call:')[0] ||
 			'Transaction failed'
-	} else {
-		if (errorMsg?.includes('Version:')) {
-			message = errorMsg?.split('Version:')[0] || 'Transaction failed'
+	} else if (errorMsg?.includes('Version:')) {
+		message = errorMsg?.split('Version:')[0] || 'Transaction failed'
 
-			if (message.includes('Address' && 'is invalid')) {
-				message = 'The Referral address does not exist'
-			}
-		} else {
-			message = errorMsg || 'Transaction failed'
+		if (message.includes('Address' && 'is invalid')) {
+			message = 'The Referral address does not exist'
 		}
+	} else {
+		message = errorMsg || 'Transaction failed'
 	}
 
 	switch (status) {
@@ -33,7 +31,9 @@ export function myToast(
 			toast.update(toastId, {
 				render: (
 					<span>
-						{label}:<br /> <span className="font-normal">{message}.</span>
+						{label}
+						:
+						<br /> <span className="font-normal">{message}.</span>
 					</span>
 				),
 				type: 'error',
@@ -46,8 +46,9 @@ export function myToast(
 			toast.update(toastId, {
 				render: (
 					<span>
-						{label}:<br />{' '}
-						<span className="font-normal">Transaction success.</span>
+						{label}
+						:
+						<br /> <span className="font-normal">Transaction success.</span>
 					</span>
 				),
 				type: 'success',
@@ -103,6 +104,7 @@ export const handleToast = ({
 	toastId: string
 	label: string
 	writeStatus: 'success' | 'error' | 'loading' | 'idle' | 'pending'
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	writeError: any
 }) => {
 	if (

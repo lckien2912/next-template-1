@@ -9,10 +9,12 @@ type ProviderType = {
 	initialState?: State
 }
 
-const WagmiProviders = ({ children, initialState }: ProviderType) => (
-	<WagmiProvider config={wagmiConfig} initialState={initialState}>
-		{children}
-	</WagmiProvider>
-)
+const WagmiProviders = ({ children, initialState }: ProviderType) => {
+	return (
+		<WagmiProvider config={wagmiConfig} initialState={initialState}>
+			{children}
+		</WagmiProvider>
+	)
+}
 
 export default WagmiProviders

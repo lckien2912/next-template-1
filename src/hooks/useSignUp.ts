@@ -24,8 +24,7 @@ export const useSignUp = ({
 	const { signMessage } = useSignIn({})
 
 	return useMutation({
-		mutationFn: async (body: SignUpParams) =>
-			await authServices.postSignUp(body),
+		mutationFn: async (body: SignUpParams) => authServices.postSignUp(body),
 
 		onSuccess({ data }, variables, context) {
 			const { nonce } = data

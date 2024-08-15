@@ -21,7 +21,7 @@ export const useInvest = (
 			toastId: 'invest_toast',
 			writeStatus: investStatus,
 			writeError: investError,
-			label: `Invest`,
+			label: 'Invest',
 		})
 	}, [investData, investError, investStatus])
 
