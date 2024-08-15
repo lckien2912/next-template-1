@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import * as React from 'react'
 
+import Pagination from '../Pagination'
 import {
 	Table,
 	TableBody,
@@ -10,9 +11,7 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from '@/components/ui/table'
-
-import PaginationComponent from '../Pagination'
+} from '../ui/table'
 import {
 	ColumnDef,
 	ColumnFiltersState,
@@ -34,6 +33,7 @@ interface DataTableProps<T> {
 	paginationKey?: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DataTable: React.FC<DataTableProps<any>> = ({
 	data,
 	columns,
@@ -81,18 +81,16 @@ const DataTable: React.FC<DataTableProps<any>> = ({
 				<TableHeader>
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow key={headerGroup.id}>
-							{headerGroup.headers.map((header) => {
-								return (
-									<TableHead key={header.id}>
-										{header.isPlaceholder
-											? null
-											: flexRender(
-													header.column.columnDef.header,
-													header.getContext(),
-												)}
-									</TableHead>
-								)
-							})}
+							{headerGroup.headers.map((header) => (
+								<TableHead key={header.id}>
+									{header.isPlaceholder
+										? null
+										: flexRender(
+												header.column.columnDef.header,
+												header.getContext(),
+											)}
+								</TableHead>
+							))}
 						</TableRow>
 					))}
 				</TableHeader>
@@ -131,7 +129,7 @@ const DataTable: React.FC<DataTableProps<any>> = ({
 				</TableBody>
 			</Table>
 			<div className="flex items-center justify-end space-x-2 py-4">
-				<PaginationComponent
+				<Pagination
 					limit={limit}
 					totalItem={totalRow}
 					paramKey={paginationKey}

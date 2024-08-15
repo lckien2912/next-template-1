@@ -1,13 +1,7 @@
 import queryString from 'query-string'
 
 import { SignInModel } from './auth/auth.models'
-import {
-	deleteRefreshToken,
-	getAccessToken,
-	getRefreshToken,
-	setAccessToken,
-	setRefreshToken,
-} from './auth/auth.serverActions'
+import { TokenServices } from './auth/token.serverActions'
 import {
 	IResponseSuccess,
 	IServerResponseSuccess,
@@ -52,7 +46,7 @@ export async function baseRequest<T>(
 					skipNull: true,
 				})
 
-				url += '?' + queryStringParams
+				url += `?${queryStringParams}`
 			} else {
 				if (!isFormData) {
 					requestOptions.headers = {
@@ -69,31 +63,34 @@ export async function baseRequest<T>(
 
 		if (!resData.success) {
 			if (resData.statusCode === 401) {
-				const oldRefreshToken = await getRefreshToken()
+				const oldRefreshToken = await TokenServices.getRefreshToken()
 
-				const res = await fetch(BASE_URL + '/api/v1/auth/refresh-token', {
+				const res = await fetch(`${BASE_URL}/api/v1/auth/refresh-token`, {
 					method: 'POST',
 					headers: { Authorization: `Bearer ${oldRefreshToken}` },
 				})
 
-				deleteRefreshToken()
 				const data: IServerResponseSuccess<SignInModel> = await res.json()
 
-				if (data.success) {
-					setAccessToken(data.data.accessToken)
-					setRefreshToken(data.data.refreshToken)
-
-					const retryRequest = await fetch(`${BASE_URL}/api/v1${url}`, {
-						...requestOptions,
-						headers: {
-							...requestOptions.headers,
-							Authorization: `Bearer ${data.data.accessToken}`,
-						},
-					})
-					const resRetry: IServerResponseSuccess<T> = await retryRequest.json()
-
-					return { data: resRetry.data, totalRow: resRetry.totalRow }
+				if (!data.success) {
+					TokenServices.deleteAccessToken()
+					TokenServices.deleteRefreshToken()
+					throw new Error(data.message)
 				}
+
+				TokenServices.setAccessToken(data.data.accessToken)
+				TokenServices.setRefreshToken(data.data.refreshToken)
+
+				const retryRequest = await fetch(`${BASE_URL}/api/v1${url}`, {
+					...requestOptions,
+					headers: {
+						...requestOptions.headers,
+						Authorization: `Bearer ${data.data.accessToken}`,
+					},
+				})
+				const resRetry: IServerResponseSuccess<T> = await retryRequest.json()
+
+				return { data: resRetry.data, totalRow: resRetry.totalRow }
 			}
 
 			throw new Error(resData.message)
@@ -113,7 +110,7 @@ export async function requestWithoutAuth<T>(
 	params?: Params | FormData,
 	options?: RequestOptions,
 ): Promise<IResponseSuccess<T>> {
-	return await baseRequest(url, params, options)
+	return baseRequest(url, params, options)
 }
 
 // Function for requests with Authorization
@@ -122,9 +119,9 @@ export async function requestWithAuth<T>(
 	params?: Params | FormData,
 	options?: RequestOptions,
 ): Promise<IResponseSuccess<T>> {
-	const accessToken = await getAccessToken()
+	const accessToken = await TokenServices.getAccessToken()
 
-	return await baseRequest(url, params, {
+	return baseRequest(url, params, {
 		...options,
 		headers: { ...options?.headers, Authorization: `Bearer ${accessToken}` },
 	})

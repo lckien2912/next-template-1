@@ -30,8 +30,7 @@ export const useSignIn = ({
 	const previousAddress = useReadLocalStorage<string | null>(PREVIOUS_ADDRESS)
 
 	const { mutate: handleSignIn } = useMutation({
-		mutationFn: async (body: SignInParams) =>
-			await authServices.postSignIn(body),
+		mutationFn: async (body: SignInParams) => authServices.postSignIn(body),
 
 		onSuccess(...params) {
 			successCallback?.(...params)

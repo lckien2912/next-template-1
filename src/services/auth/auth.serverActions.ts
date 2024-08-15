@@ -9,30 +9,10 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants/variables'
 
 const ENDPOINT = '/auth'
 
-export const getAccessToken = () => {
-	return cookies().get(ACCESS_TOKEN)?.value
-}
-
-export const getRefreshToken = () => {
-	return cookies().get(REFRESH_TOKEN)?.value
-}
-
-export const setAccessToken = (accessToken: string) => {
-	return cookies().set(ACCESS_TOKEN, accessToken)
-}
-
-export const setRefreshToken = (refreshToken: string) => {
-	return cookies().set(REFRESH_TOKEN, refreshToken)
-}
-
-export const deleteRefreshToken = () => {
-	cookies().delete(REFRESH_TOKEN)
-}
-
 export const postSignIn = async (body: SignInParams) => {
 	try {
 		const { data } = await apiWithoutAuth.post<SignInModel>(
-			ENDPOINT + '/sign-in',
+			`${ENDPOINT}/sign-in`,
 			body,
 		)
 		const { accessToken, refreshToken } = data
@@ -49,7 +29,7 @@ export const postSignIn = async (body: SignInParams) => {
 export const postLogout = async () => {
 	try {
 		const { data: isLogout } = await apiWithAuth.post<boolean>(
-			ENDPOINT + '/logout',
+			`${ENDPOINT}/logout`,
 		)
 
 		return isLogout

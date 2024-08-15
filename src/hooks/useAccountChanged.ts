@@ -6,6 +6,7 @@ export const useAccountChanged = (effect: EffectCallback) => {
 	const { disconnect } = useDisconnect()
 
 	return useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const handleConnectorUpdate = ({ accounts }: any) => {
 			if (accounts) {
 				effect()

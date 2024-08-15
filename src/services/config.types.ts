@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-export interface Params {
-	[key: string]: string | number | boolean
-}
+export type Params = Record<string, string | number | boolean>
 
 export interface IServerResponseSuccess<T> {
 	success: true

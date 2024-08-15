@@ -46,7 +46,7 @@ const WalletBtnList = () => {
 				if (message.includes('Connector already connected.')) {
 					handleCheckAddress(address)
 				}
-				console.log('error', message)
+				console.error('error', message)
 			},
 		},
 	})

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable no-unused-vars */
 import { requestWithAuth, requestWithoutAuth } from './config'
 import { IResponseSuccess, Params, RequestOptions } from './config.types'
@@ -28,7 +30,7 @@ function createAPI(
 
 		async patch<T>(
 			url: string,
-			params?: Record<string, any>,
+			params?: Record<string, any> | FormData,
 			options?: RequestOptions,
 		) {
 			return request<T>(url, params, { ...options, method: 'PATCH' })
@@ -36,7 +38,7 @@ function createAPI(
 
 		async put<T>(
 			url: string,
-			params?: Record<string, any>,
+			params?: Record<string, any> | FormData,
 			options?: RequestOptions,
 		) {
 			return request<T>(url, params, { ...options, method: 'PUT' })

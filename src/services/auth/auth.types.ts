@@ -9,9 +9,9 @@ export interface SignUpParams {
 	publicAddress: Address
 	email: string
 	telegram: string
-	twitter?: string | null
-	discord?: string | null
-	refCode?: string | null
+	twitter: string | null
+	discord: string | null
+	refCode: string | null
 }
 
 export interface SignInParams {

@@ -17,9 +17,7 @@ const LoginContext = createContext<ILoginStateProvider>({
 	setIsLogin: () => {},
 })
 
-export const useLogin = () => {
-	return useContext(LoginContext)
-}
+export const useLogin = () => useContext(LoginContext)
 
 const LoginStateProvider = ({
 	loginState = false,

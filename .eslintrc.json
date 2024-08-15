@@ -1,9 +1,11 @@
 {
 	"plugins": ["prettier", "@stylistic", "@typescript-eslint"],
 	"extends": ["prettier", "next/core-web-vitals", "eslint:recommended", "next"],
+	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"project": "./tsconfig.json"
 	},
+	"ignorePatterns": ["dist", ".eslintrc.js", "postcss.config.js"],
 	"rules": {
 		"prettier/prettier": [
 			"error",
@@ -44,11 +46,6 @@
 				"blankLine": "always",
 				"prev": "*",
 				"next": "block-like"
-			},
-			{
-				"blankLine": "always",
-				"prev": "*",
-				"next": "multiline-const"
 			}
 		],
 		"@stylistic/no-multiple-empty-lines": "error",
@@ -117,6 +114,21 @@
 				"selector": "typeAlias",
 				"format": ["PascalCase"],
 				"suffix": ["Type"]
+			}
+		],
+		"no-restricted-imports": [
+			"error",
+			{
+				"patterns": [
+					{
+						"group": ["../**/components/**/*"],
+						"message": "Do not import from a higher level component's internal components, move that component further up the directory tree instead."
+					},
+					{
+						"group": ["**/components/**/components/**/*"],
+						"message": "Do not import internal components used by a sub-component, move that component further up the directory tree instead."
+					}
+				]
 			}
 		]
 	},
